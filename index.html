@@ -25,8 +25,28 @@
   </div>
   <div id="map"></div>
 
+  <button id="ai-btn">📸 AI品質判定</button>
+
+  <div id="ai-modal">
+    <div class="ai-modal-inner">
+      <div class="ai-modal-header">
+        <h2>AI 品質判定</h2>
+        <button id="ai-close">✕</button>
+      </div>
+      <div class="ai-modal-body">
+        <p class="ai-desc">古着の写真をアップロードすると、AIが状態・魅力・おすすめ度を判定します。</p>
+        <input type="file" id="ai-file-input" accept="image/*" style="display:none">
+        <button id="ai-upload" class="ai-upload-btn">📷 写真を選ぶ</button>
+        <img id="ai-preview" src="" alt="プレビュー" style="display:none">
+        <button id="ai-analyze" class="ai-analyze-btn" disabled>判定する</button>
+        <div id="ai-result"></div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="stores.js"></script>
   <script src="app.js"></script>
+  <script src="ai.js"></script>
 </body>
 </html>

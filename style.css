@@ -116,3 +116,198 @@ body {
 #map {
   flex: 1;
 }
+
+/* AI品質判定ボタン */
+#ai-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #c8a86b;
+  color: #000;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  z-index: 1000;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#ai-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* モーダル背景 */
+#ai-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+
+#ai-modal.open {
+  display: flex;
+}
+
+.ai-modal-inner {
+  background: #1a1a1a;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: #fff;
+}
+
+.ai-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 0;
+}
+
+.ai-modal-header h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+#ai-close {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+#ai-close:hover {
+  color: #fff;
+}
+
+.ai-modal-body {
+  padding: 16px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-desc {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ai-upload-btn {
+  background: #2a2a2a;
+  border: 2px dashed #444;
+  color: #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.ai-upload-btn:hover {
+  border-color: #c8a86b;
+  color: #c8a86b;
+}
+
+#ai-preview {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: contain;
+  max-height: 240px;
+  background: #2a2a2a;
+}
+
+.ai-analyze-btn {
+  background: #c8a86b;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.ai-analyze-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ai-analyze-btn:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+/* 判定結果 */
+#ai-result {
+  background: #2a2a2a;
+  border-radius: 10px;
+  padding: 16px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#ai-result[style*="block"] {
+  display: flex;
+}
+
+.ai-score-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.ai-score-num {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.ai-score-label {
+  font-size: 20px;
+  color: #aaa;
+}
+
+.ai-rec {
+  display: inline-block;
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  align-self: flex-start;
+}
+
+.ai-section h4 {
+  font-size: 12px;
+  color: #c8a86b;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ai-section p {
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ai-error {
+  color: #f44336;
+  font-size: 13px;
+  text-align: center;
+  margin: 0;
+}
