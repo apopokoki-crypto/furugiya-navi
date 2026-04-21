@@ -25,7 +25,28 @@
   </div>
   <div id="map"></div>
 
+  <button id="ceo-btn">📞 CEOを呼ぶ</button>
   <button id="ai-btn">📸 AI品質判定</button>
+
+  <div id="ceo-modal">
+    <div class="ceo-modal-inner">
+      <div class="ceo-modal-header">
+        <div class="ceo-header-info">
+          <div class="ceo-avatar">🎩</div>
+          <div>
+            <div class="ceo-name">古着ナビ CEO</div>
+            <div class="ceo-status">オンライン</div>
+          </div>
+        </div>
+        <button id="ceo-close">✕</button>
+      </div>
+      <div id="ceo-messages"></div>
+      <div class="ceo-input-bar">
+        <input type="text" id="ceo-input" placeholder="CEOに聞く..." maxlength="200">
+        <button id="ceo-send">送信</button>
+      </div>
+    </div>
+  </div>
 
   <div id="ai-modal">
     <div class="ai-modal-inner">
@@ -48,5 +69,6 @@
   <script src="stores.js"></script>
   <script src="app.js"></script>
   <script src="ai.js"></script>
+  <script src="ceo.js"></script>
 </body>
 </html>
