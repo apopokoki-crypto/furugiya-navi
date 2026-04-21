@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MABOROSHI — NAMELESS WHITE</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Libre+Baskerville:ital@1&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f2f0eb;
+      --bg2:       #e8e6e1;
+      --ink:       #2a2a2a;
+      --ink-muted: #888880;
+      --silver:    #9a9a96;
+      --white:     #fafaf8;
+      --border:    #d4d2cd;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 3rem 3.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-block h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .brand-block .sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-top: 0.45rem;
+    }
+
+    .meta-block {
+      text-align: right;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      line-height: 2;
+    }
+
+    /* ── MOODBOARD GRID ── */
+    .grid-section {
+      padding: 2.5rem 3.5rem;
+    }
+
+    .moodboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 6px;
+    }
+
+    .cell {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg2);
+    }
+
+    .cell-main    { grid-row: 1 / 3; aspect-ratio: 3/4; }
+    .cell-wide    { grid-column: span 2; aspect-ratio: 16/7; }
+    .cell-square  { aspect-ratio: 1; }
+    .cell-tall    { aspect-ratio: 2/3; }
+
+    /* animated gradient placeholders */
+    .cell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--white) 50%, var(--bg2) 100%);
+      background-size: 200% 200%;
+      animation: shimmer 4s ease infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* unique tones per cell */
+    .cell:nth-child(1)::before { background: linear-gradient(160deg, #e0ddd8, #f0eeea, #d8d5d0); background-size: 200% 200%; animation: shimmer 5s ease infinite; }
+    .cell:nth-child(2)::before { background: linear-gradient(120deg, #eae8e3, #f5f3ef, #dcdad5); background-size: 200% 200%; animation: shimmer 6s ease infinite 0.5s; }
+    .cell:nth-child(3)::before { background: linear-gradient(100deg, #f0eeea, #ffffff, #e5e3de); background-size: 200% 200%; animation: shimmer 4s ease infinite 1s; }
+    .cell:nth-child(4)::before { background: linear-gradient(140deg, #dbd9d4, #eceae5, #f2f0eb); background-size: 200% 200%; animation: shimmer 7s ease infinite 0.2s; }
+    .cell:nth-child(5)::before { background: linear-gradient(110deg, #e8e6e1, #f8f6f2, #dddbd6); background-size: 200% 200%; animation: shimmer 5s ease infinite 1.5s; }
+    .cell:nth-child(6)::before { background: linear-gradient(150deg, #d6d4cf, #eeecea, #f4f2ed); background-size: 200% 200%; animation: shimmer 4.5s ease infinite 0.8s; }
+
+    .cell-label {
+      position: absolute;
+      bottom: 0.7rem;
+      left: 0.7rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(40, 38, 35, 0.55);
+      padding: 0.2rem 0.5rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .cell-keyword {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .cell-keyword span {
+      display: block;
+      font-size: clamp(0.9rem, 1.4vw, 1.4rem);
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      color: rgba(42,42,42,0.18);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* palette cell */
+    .cell-palette {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 1.8rem;
+      aspect-ratio: 1;
+    }
+
+    .cell-palette::before { display: none; }
+
+    .palette-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      width: 100%;
+      text-align: center;
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      width: 100%;
+    }
+
+    .swatch {
+      aspect-ratio: 1;
+      border: 1px solid var(--border);
+    }
+
+    .palette-words {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--silver);
+      text-align: center;
+      line-height: 2.2;
+      font-style: italic;
+      text-transform: lowercase;
+    }
+
+    /* ── SHOT LIST / STORYBOARD ── */
+    .storyboard-section {
+      padding: 3rem 3.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 2rem;
+    }
+
+    .shots {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .shot {
+      border: 1px solid var(--border);
+      padding: 1.2rem;
+      background: var(--white);
+    }
+
+    .shot-num {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      color: var(--silver);
+      margin-bottom: 0.7rem;
+    }
+
+    .shot-title {
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .shot-desc {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    .shot-dur {
+      margin-top: 0.8rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--silver);
+    }
+
+    /* ── BRIEF COLUMNS ── */
+    .brief-section {
+      padding: 3rem 3.5rem;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .brief-col h3 {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+      color: var(--ink-muted);
+      background: var(--white);
+    }
+
+    .brief-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      line-height: 2.2;
+      letter-spacing: 0.04em;
+    }
+
+    .brief-list li::before {
+      content: '—  ';
+      color: var(--border);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 3.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    footer .tagline {
+      font-style: italic;
+      font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+    }
+
+    footer .byline {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--silver);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      header, .grid-section, .storyboard-section, .brief-section, footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .moodboard-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cell-main { grid-row: auto; }
+
+      .brief-section { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 560px) {
+      .moodboard-grid { grid-template-columns: 1fr; }
+      .shots { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand-block">
+      <h1>Nameless White</h1>
+      <p class="sub">Moodboard &mdash; Maboroshi Vol.08</p>
+    </div>
+    <div class="meta-block">
+      <div>Reel &middot; 9:16 &middot; 15–30s</div>
+      <div>World &middot; Transparency</div>
+      <div>2026</div>
+    </div>
+  </header>
+
+  <!-- MOODBOARD GRID -->
+  <section class="grid-section">
+    <div class="moodboard-grid">
+
+      <!-- Main tall cell -->
+      <div class="cell cell-main">
+        <div class="cell-keyword"><span>Veil</span><span>Stillness</span></div>
+        <div class="cell-label">Veil · Stillness</div>
+      </div>
+
+      <!-- Row 1 -->
+      <div class="cell cell-wide">
+        <div class="cell-keyword"><span>Canyon · Wind</span></div>
+        <div class="cell-label">Canyon · Wind</div>
+      </div>
+
+      <!-- Row 1 right -->
+      <div class="cell cell-square">
+        <div class="cell-keyword"><span>Sacred Hall</span><span>Water</span></div>
+        <div class="cell-label">Sacred Hall · Water</div>
+      </div>
+
+      <!-- Palette panel (replaces last cell row 1) -->
+      <div class="cell cell-palette">
+        <div class="palette-label">Palette</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#fafaf8;"></div>
+          <div class="swatch" style="background:#ede9e2;"></div>
+          <div class="swatch" style="background:#dddbd5;"></div>
+          <div class="swatch" style="background:#c8c6c0;"></div>
+          <div class="swatch" style="background:#9a9a96;"></div>
+          <div class="swatch" style="background:#4a4a48;"></div>
+        </div>
+        <div class="palette-words">translucent<br>weightless<br>sacred<br>unnamed</div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="cell cell-square">
+        <div class="cell-keyword"><span>Sphere</span><span>Levitation</span></div>
+        <div class="cell-label">Sphere · Levitation</div>
+      </div>
+
+      <div class="cell cell-square">
+        <div class="cell-keyword"><span>Bottle</span><span>Object</span></div>
+        <div class="cell-label">Bottle · Object</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SHOT LIST -->
+  <section class="storyboard-section">
+    <p class="section-title">Shot List &mdash; Reel Structure</p>
+    <div class="shots">
+
+      <div class="shot">
+        <div class="shot-num">Shot 01</div>
+        <div class="shot-title">Opening · Veil</div>
+        <div class="shot-desc">Translucent fabric drifts in silence. Slow pull-back from fabric weave to reveal figure beneath.</div>
+        <div class="shot-dur">0:00 – 0:04</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-num">Shot 02</div>
+        <div class="shot-title">Garden · Night</div>
+        <div class="shot-desc">Burning garden in darkness. Ember glow through white petals, slow pan left to right.</div>
+        <div class="shot-dur">0:04 – 0:08</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-num">Shot 03</div>
+        <div class="shot-title">Sphere · Levitation</div>
+        <div class="shot-desc">Water sphere suspended mid-air. Micro-bubbles rise. Extreme close-up to full reveal.</div>
+        <div class="shot-dur">0:08 – 0:13</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-num">Shot 04</div>
+        <div class="shot-title">Bottle · Sacred Hall</div>
+        <div class="shot-desc">Bottle materialises in infinite corridor of light. Rack focus: bottle sharp, hall dissolves.</div>
+        <div class="shot-dur">0:13 – 0:20</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-num">Shot 05</div>
+        <div class="shot-title">Logo · End Card</div>
+        <div class="shot-desc">MABOROSHI logotype fades in on pure white. Tagline appears letter by letter. Hold 3 s.</div>
+        <div class="shot-dur">0:20 – 0:28</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BRIEF COLUMNS -->
+  <section class="brief-section">
+
+    <div class="brief-col">
+      <h3>World Keywords</h3>
+      <div class="tag-list">
+        <span class="tag">燃える庭園</span>
+        <span class="tag">夜</span>
+        <span class="tag">煌めく炎</span>
+        <span class="tag">静謐な美しさ</span>
+        <span class="tag">非現実</span>
+        <span class="tag">夢と記憶の間</span>
+        <span class="tag">Translucent</span>
+        <span class="tag">Weightless</span>
+        <span class="tag">Sacred</span>
+        <span class="tag">Unnamed</span>
+      </div>
+    </div>
+
+    <div class="brief-col">
+      <h3>Production Notes</h3>
+      <ul class="brief-list">
+        <li>Image-to-video via Runway Gen-4 / Kling / Pika</li>
+        <li>9:16 vertical, 1080 × 1920 px minimum</li>
+        <li>15–30 s final cut, no dialogue</li>
+        <li>BGM: royalty-free, ambient / modern classical</li>
+        <li>Typography: brand logotype + product name only</li>
+        <li>Colour grade: retain near-white palette, muted tones</li>
+        <li>Deliverable: MP4 H.264, Instagram-ready export</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="tagline"><em>The scent of the world before it was given a name.</em></p>
+    <p class="byline">Maboroshi &middot; Nameless White</p>
+  </footer>
+
+</body>
+</html>
